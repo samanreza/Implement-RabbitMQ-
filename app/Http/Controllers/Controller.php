@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Jobs\TestQueue;
+use App\Notifications\SendSmsClass;
+use App\Services\RabbitMQMain;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Notification;
+
+class Controller extends BaseController
+{
+    use AuthorizesRequests, ValidatesRequests;
+
+
+    public function index(Request $request): void
+    {
+        $data = ['to' => '09122465653','from' => '3000472','message' => "مرگز مبادله ایران"];
+        Notification::send((object)$data,new SendSmsClass());
+    }
+}
